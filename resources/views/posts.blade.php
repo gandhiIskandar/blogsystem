@@ -12,7 +12,8 @@
 
             <div class="text-base text-gray-500 mt-2 ">
 
-                <a href="#">{{ $post['author'] }}</a> | {{ $post->created_at->diffForHumans() }}
+               by <a href="/author/{{ $post->author->username}}" class="hover:underline">{{ $post->author->name }}</a> 
+                in  <a href="/category/{{ $post->category->slug }}" class="hover:underline">{{ $post->category->name }}</a> | {{ $post->created_at->diffForHumans() }}
             </div>
 
             <p class="my-4 font-light">{{ Str::limit($post['body'], 55) }}</p>

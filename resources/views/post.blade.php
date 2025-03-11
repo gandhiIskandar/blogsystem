@@ -6,9 +6,10 @@
 
         <h2 class="mb-1 text-3xl tracking-tight font-bold text-gray-900">{{ $post['title'] }}</h2>
 
-        <div class="text-base text-gray-500 mt-2 ">
+        <div class="text-base text-gray-500 mt-2 hover:underline">
 
-            <a href="#">{{ $post['author'] }}</a> | 1 Januari
+         by   <a href="/author/{{ $post->author->username }}">{{ $post->author->name }}</a> in
+         <a href="/category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
         </div>
 
         <p class="my-4 font-light">{{ $post['body'], 55 }}</p>

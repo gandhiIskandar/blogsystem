@@ -15,6 +15,8 @@ class Post extends Model
 
     protected $fillable=["slug","author","title","body"];
 
+   // protected $with = ['author','category'];
+
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 

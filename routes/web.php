@@ -25,20 +25,23 @@ Route::get('/posts/{post:slug}', function (Post $post) { //route binding menggun
 
 
 Route::get('/author/{user:username}', function (User $user) { 
- 
-     $title = count($user->posts). " Articles by $user->name";
 
-     $posts= $user->posts;
+    $posts = $user->posts->load('author','category');
+ 
+     $title = count($posts). " Articles by $user->name";
+
  
      return view('posts', compact('posts', 'title'));
  });
 
 
  Route::get('/category/{category:slug}', function (Category $category) { 
- 
-   $title = count($category->posts)." Posts in $category->name";
 
-    $posts= $category->posts;
+
+     $posts= $category->posts->load('author','category');
+ 
+   $title = count($posts)." Posts in $category->name";
+
 
     return view('posts', compact('posts', 'title'));
 });
@@ -46,7 +49,7 @@ Route::get('/author/{user:username}', function (User $user) {
 Route::get('/posts', function () {
     return view('posts', [
         "title" => "Blog",
-        "posts" => Post::all()
+        "posts" => Post::with(['author','category'])->get()
     ]);
 });
 

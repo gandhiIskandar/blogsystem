@@ -4,8 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Category;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,25 +24,20 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Post::create([
-            "slug"=>"post-pertama",
-            "title"=>"Post Pertama",
-            "author"=>"Alfath Gandhi",
-            "body"=>"Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-     Cum ea repudiandae deserunt similique fugit. Placeat officiis nam, quod tempore voluptatibus veritatis sit nesciunt. Vero ut suscipit nulla consequatur natus exercitationem?
-"
+        $user = User::create([
+            'name' => "Alfath Gandhi",
+            'email' => "alfathgandhi98@gmail.com",
+            'username' => "alfathgandhi",
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
         ]);
 
-        Post::create([
-            "slug"=>"post-kedua",
-            "title"=>"Post Kedua",
-            "author"=>"Alfath Gandhi",
-            "body"=>"Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-     Cum ea repudiandae deserunt similique fugit. Placeat officiis nam, quod tempore voluptatibus veritatis sit nesciunt. Vero ut suscipit nulla consequatur natus exercitationem?
-"
-        ]);
-
-
+    Post::factory(200)->recycle([
+        Category::factory(3)->create(),
+        $user, // maka $user akan masuk kedalam recycle
+        User::factory(5)->create()
+    ])->create();
 
     }
 }

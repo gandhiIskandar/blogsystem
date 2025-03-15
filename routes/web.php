@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
@@ -13,7 +14,7 @@ Route::get('/', function () {
     return view('home', ["title" => "Home Page"]);
 });
 
-Route::get('/posts/{post:slug}', function (Post $post) { //route binding menggunakan field slug tanpa harus pakai fungsi filter
+Route::get('/post/{post:slug}', function (Post $post) { //route binding menggunakan field slug tanpa harus pakai fungsi filter
    // $post = Post::find($id);
 
 
@@ -35,23 +36,8 @@ Route::get('/author/{user:username}', function (User $user) {
  });
 
 
- Route::get('/category/{category:slug}', function (Category $category) { 
 
-
-     $posts= $category->posts->load('author','category');
- 
-   $title = count($posts)." Posts in $category->name";
-
-
-    return view('posts', compact('posts', 'title'));
-});
-
-Route::get('/posts', function () {
-    return view('posts', [
-        "title" => "Blog",
-        "posts" => Post::with(['author','category'])->get()
-    ]);
-});
+Route::get('/posts', [PostController::class,'index'])->name('posts.index');
 
 Route::get('/about', function () {
     return view('about', ["title" => "About"]);

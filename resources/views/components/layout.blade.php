@@ -7,7 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body class="h-full">
     <!--
